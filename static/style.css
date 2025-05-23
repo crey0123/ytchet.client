@@ -1,0 +1,261 @@
+body {
+    font-family: Arial, sans-serif;
+            margin: 200px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    text-align: left;
+    width: 325px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    padding: 10px;
+    margin-top: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 10px 0;
+}
+
+
+.multiselect {
+    position: relative;
+    display: inline-block;
+    width: 300px;
+}
+
+.selectBox {
+    position: relative;
+    display: block;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.selectBox select {
+    width: 100%;
+    border: none;
+    background: none;
+    font-size: 16px;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.overSelect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.checkboxes {
+    display: none;
+    border: 1px solid #ccc;
+    background-color: white;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.checkboxes label {
+    display: block;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.checkboxes label:hover {
+    background-color: #f1f1f1;
+}
+
+.checkboxes input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Контейнер для баз данных */
+#accessBasesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Каждая база данных */
+.base-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+/* Кнопки выбора */
+.select-button {
+    padding: 5px 10px;
+    font-size: 14px;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.select-button.selected {
+    background-color: #FF5722;
+}
+
+.select-button:hover {
+    background-color: #45a049;
+}
+
+.select-button.selected:hover {
+    background-color: #E64A19;
+}
+
+
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+form {
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 35px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+}
+label {
+    display: blocck;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+select, input[type="date"], button {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+button {
+    background-color: #0084ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #0056b3;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+th {
+    background-color: #007BFF;
+    color: white;
+}
+
+.back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .back-btn:hover {
+            background-color: #218838;
+        }
+.no-data {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+}
+     /* Верхняя картинка */
+.header-banner {
+    width: 100%;
+    height: 170px; /* Настроить высоту */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: url('/static/banner.png') center/cover no-repeat;
+    z-index: 1000;
+}
+
+/* Нижняя картинка */
+.footer-banner {
+    width: 100%;
+    height: 170px; /* Настроить высоту */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: url('/static/banner2.png') center/cover no-repeat;
+    z-index: 1000;
+}
+
+
+
+

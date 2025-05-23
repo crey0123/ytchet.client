@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Добавить пользователя</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Добавить пользователя</h1>
+  <form action="/add_user" method="post">
+    <!-- ФИО -->
+    <label for="fio">ФИО (обязательное):</label>
+    <input type="text" id="fio" name="fio" required>
+
+    <!-- Должность -->
+    <label for="position_id">Должность:</label>
+    <select id="position_id" name="position_id" required onchange="handlePositionChange(this)">
+      <option value="">Выберите должность</option>
+      {% for position in positions %}
+      <option value="{{ position[0] }}">{{ position[1] }}</option>
+      {% endfor %}
+      <option value="new">Добавить новую должность</option>
+    </select>
+    <div id="newPositionContainer" style="display: none;">
+      <label for="newPositionName">Новая должность:</label>
+      <input type="text" id="newPositionName">
+      <button type="button" onclick="addPosition()">Сохранить</button>
+    </div>
+    
+
+    <!-- Подразделение -->
+    <label for="department_id">Подразделение:</label>
+    <select id="department_id" name="department_id" required>
+      <option value="">Выберите подразделение</option>
+      {% for department in departments %}
+      <option value="{{ department[0] }}">{{ department[1] }}</option>
+      {% endfor %}
+    </select>
+
+    <!-- Базы данных -->
+    <label for="access_bases">Базы данных:</label>
+    <select id="access_bases" name="access_bases" multiple size="4" onchange="handleAccessBasesChange(this)">
+      {% for base in access_bases %}
+      <option value="{{ base[0] }}">{{ base[1] }}</option>
+      {% endfor %}
+    </select>
+
+    <!-- Дополнительные поля -->
+    <div id="additionalFields"></div>
+
+    <button type="submit">Добавить</button>
+    <button type="button" onclick="window.location.href='/dashboard';">Отмена</button>
+  </form>
+
+  <script>
+    // Обработка изменения должности
+    function handlePositionChange(select) {
+      const newPositionContainer = document.getElementById("newPositionContainer");
+      if (select.value === "new") {
+          newPositionContainer.style.display = "block";
+      } else {
+          newPositionContainer.style.display = "none";
+      }
+    }
+
+    // Добавление новой должности
+    function addPosition() {
+      const positionName = document.getElementById("newPositionName").value;
+      if (!positionName) {
+          alert("Название должности не может быть пустым!");
+          return;
+      }
+
+      fetch("/add_position", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: `position_name=${encodeURIComponent(positionName)}`
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.status === "success") {
+              const select = document.getElementById("position_id");
+              const option = document.createElement("option");
+              option.value = data.position_id;
+              option.textContent = positionName;
+              select.appendChild(option);
+              select.value = data.position_id;
+              alert(data.message);
+              handlePositionChange(select); // скрыть поле ввода
+          } else {
+              alert(data.message);
+          }
+      })
+      .catch(error => alert("Ошибка при добавлении должности: " + error));
+    }
+
+    // Обработка изменения выбора баз данных
+    function handleAccessBasesChange(select) {
+      const additionalFieldsContainer = document.getElementById("additionalFields");
+      additionalFieldsContainer.innerHTML = ""; // Очистка полей
+
+      const selectedOptions = Array.from(select.selectedOptions);
+      selectedOptions.forEach(option => {
+          fetch(`/get_additional_fields/${option.value}`)
+              .then(response => response.json())
+              .then(fields => {
+                  fields.forEach(field => {
+                      const label = document.createElement("label");
+                      label.textContent = field.label;
+
+                      const input = document.createElement("input");
+                      input.type = field.type;
+                      // Группируем данные в объект additional_fields
+                      input.name = `additional_fields[${field.name}]`;
+
+                      additionalFieldsContainer.appendChild(label);
+                      additionalFieldsContainer.appendChild(input);
+                  });
+              })
+              .catch(error => console.error("Ошибка загрузки дополнительных полей:", error));
+      });
+    }
+  </script>
+
+  
+</body>
+</html>

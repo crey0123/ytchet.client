@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Удаление пользователя</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Удалить пользователя</h1>
+    <form action="/delete_user" method="POST">
+        <label for="fio">Введите ФИО пользователя:</label>
+        <input type="text" id="fio" name="fio" required>
+        <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить этого пользователя?')">Удалить</button>
+    </form>
+    <button onclick="window.location.href='/dashboard';">Назад</button>
+
+    
+    
+</body>
+</html>

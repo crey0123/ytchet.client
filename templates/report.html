@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Формирование отчёта</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        function submitForm(exportExcel = false) {
+            const form = document.getElementById("reportForm");
+            if (exportExcel) {
+                document.getElementById("export_excel").value = "export";
+            } else {
+                document.getElementById("export_excel").value = "";
+            }
+            form.submit();
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Формирование отчёта</h1>
+
+    <form id="reportForm" method="POST" action="/generate_report">
+        <label for="access_base_id">Выберите базу доступа:</label>
+        <select name="access_base_id" id="access_base_id" required>
+            <option value="">Выберите базу</option>
+            {% for base_id, base_name in access_bases %}
+            <option value="{{ base_id }}" {% if base_id == selected_base %}selected{% endif %}>{{ base_name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="start_date">Начальная дата:</label>
+        <input type="date" name="start_date" id="start_date">
+
+        <label for="end_date">Конечная дата:</label>
+        <input type="date" name="end_date" id="end_date">
+
+        <input type="hidden" name="export_option" id="export_option" value="">
+        <button type="button" onclick="submitForm(false)">Сформировать отчёт</button>
+       <button type="button" onclick="document.getElementById('export_option').value='excel'; document.getElementById('reportForm').submit();">Экспорт в Excel</button>
+<button type="button" onclick="document.getElementById('export_option').value='word'; document.getElementById('reportForm').submit();">Экспорт в Word</button>
+    </form>
+
+    {% if data and headers %}
+    <table>
+        <thead>
+            <tr>
+                {% for header in headers %}
+                <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                {% for cell in row %}
+                <td>{{ cell if cell else "Нет данных" }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Нет данных для отображения. Пожалуйста, сформируйте отчёт.</p>
+    {% endif %}
+
+    <a href="/dashboard" class="back-btn">Назад</a>
+
+</body>
+</html>

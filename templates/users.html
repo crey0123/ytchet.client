@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список пользователей</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Список пользователей</h1>
+
+    <!-- Форма фильтрации -->
+    <form method="GET" action="/users">
+        <label for="department_id">Подразделение:</label>
+        <select id="department_id" name="department_id">
+            <option value="">Все подразделения</option>
+            {% for department in departments %}
+            <option value="{{ department[0] }}">{{ department[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="access_base_id">Базы данных:</label>
+        <select id="access_base_id" name="access_base_id">
+            <option value="">Все базы данных</option>
+            {% for base in access_bases %}
+            <option value="{{ base[0] }}">{{ base[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Применить фильтр</button>
+        <button type="button" onclick="window.location.href='/users';">Сбросить фильтр</button>
+    </form>
+
+    <!-- Таблица с пользователями -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Должность</th>
+                <th>Подразделение</th>
+                <th>Базы данных</th>
+                <th>Дата добавления</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>{{ user[3] }}</td>
+                <td>{{ user[4] }}</td>
+                <td>{{ user[5] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+
+    <button onclick="window.location.href='/dashboard';">Назад</button>
+</body>
+</html>
